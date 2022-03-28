@@ -53,13 +53,13 @@ db.articles.find({_id:ObjectId("6240f7ae237956fa28279ae7")})
 6. 1. Find documents using title
 db.articles.find({"title" : "Wayne"})
 7. 2. Find documents using author's name field.
-db.articles.find({"author" : { "$elemMatch" : { "name" : "stricj", "email" : "John wick", "age" : "21" }}})
+db.articles.find({"author.name" : "stricj"})
 8. Find document using a specific tag
 
 9. Update title of a document using its \_id field.
 db.articles.update({_id:ObjectId("6240f7ae237956fa28279ae7")},{$set: {title:"Bruce"}})
 10. Update a author's name using article's title.
-db.articles.update({title:"Bruce"},{$set: {author: { "name" : "stricj", "email" : "John wick", "age" : "21" }}}})
+db.articles.update({title:"Wayne"},{$set: {"author.name" : "strict"}})
 11. rename details field to description from all articles in articles collection.
 db.articles.update({},{$rename: { 'details': 'description' }}, {multi: true})
 12. Add additional tag in a specific document.
@@ -72,7 +72,7 @@ db.articles.update({_id:ObjectId("6240f7ae237956fa28279ae8")},{"title" : "Lord2"
 witout set it removed everything and replaced with passed object
 
 13. find an article using title and increment it's auhtor's age by 5.
-db.articles.update({"title":"Waine"}, {"author": {$elemMatch: {$inc: {"age": 5}}}})
+db.articles.update({"title":"Waine"}, {$inc: {"author.age: 5}})
 
 14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.
 db.articles.remove({_id:ObjectId("6240f7ae237956fa28279ae8")})
